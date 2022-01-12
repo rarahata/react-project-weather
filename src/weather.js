@@ -9,7 +9,11 @@ export default function Weather(){
         <p>London</p>
         <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="weather-icon"></img>
         <h1>10 °C</h1>
-        <p>Monday</p>
+        <ul>
+            <li>Description:</li>
+            <li>Humidity:</li>
+            <li>Wind:</li>
+        </ul>
         <hr></hr>
         <div className="row">
         <div className="col-3">
