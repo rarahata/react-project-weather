@@ -1,6 +1,4 @@
 .App {
-max-width: 600px;
-display: block;
-margin: auto;
-
+    display: flex;
+    justify-content: center;
 }
