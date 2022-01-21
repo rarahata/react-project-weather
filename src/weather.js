@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./weather.css";
+import DateFormat from "./dateFormat";
 
 export default function Weather(props){
     let [weather, setWeather]= useState({});
     let [ready, setReady] = useState(false);
-    let [inputCity, setInputCity] = useState("London");
+    let [inputCity, setInputCity] = useState("");
 
     function handleResponse(response){
+        console.log(response);
         setReady(true);
         setWeather({
             temperature: Math.round(response.data.main.temp),
@@ -15,7 +17,8 @@ export default function Weather(props){
             iconUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny.png",
             description: response.data.weather[0].description,
             humidity: response.data.main.humidity,
-            wind: response.data.wind.speed
+            wind: response.data.wind.speed,
+            date: new Date (response.data.dt * 1000)
         });
     }
 
@@ -23,7 +26,7 @@ export default function Weather(props){
     event.preventDefault();
     const apiKey ="67ca492fd73748fde63df058209eed51";
     const apiUrl =`https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=metric`;
-    console.log(apiUrl)
+    console.log(apiUrl);
     axios.get(apiUrl).then(handleResponse);
     }
 
@@ -49,9 +52,10 @@ export default function Weather(props){
         <div className="Weather">
             <div className="container">
             {form}
-            <p>Monday, 27th April</p>
-            <h2>6:30am</h2>
-            <p>{weather.city}</p>
+            <DateFormat date={weather.date}/>
+            <p></p>
+            <p>Monday</p>
+            <h2>{weather.city}</h2>
             <img src={weather.iconUrl} alt="weather-icon" className="main-icon"></img>
             <div className="row">
             <div className="col-6">
@@ -61,7 +65,7 @@ export default function Weather(props){
             <ul>
             <li className="text-capitalize">{weather.description}</li>
             <li>Humidity: {weather.humidity}%</li>
-            <li>Wind: {weather.wind}m/s</li>
+            <li>Wind: {weather.wind} m/s</li>
             </ul>
             </div>
             </div>
