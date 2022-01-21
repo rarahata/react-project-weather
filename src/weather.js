@@ -9,7 +9,7 @@ export default function Weather(props){
     let [inputCity, setInputCity] = useState("");
 
     function handleResponse(response){
-        console.log(response);
+        console.log("response",response);
         setReady(true);
         setWeather({
             temperature: Math.round(response.data.main.temp),
@@ -20,6 +20,7 @@ export default function Weather(props){
             wind: response.data.wind.speed,
             date: new Date (response.data.dt * 1000)
         });
+        console.log("weatherData", weather.date)
     }
 
     function handleSubmit(event){
@@ -48,13 +49,12 @@ export default function Weather(props){
     </form>
     
     if (ready){
+        console.log(weather);
     return (
         <div className="Weather">
             <div className="container">
             {form}
             <DateFormat date={weather.date}/>
-            <p></p>
-            <p>Monday</p>
             <h2>{weather.city}</h2>
             <img src={weather.iconUrl} alt="weather-icon" className="main-icon"></img>
             <div className="row">
