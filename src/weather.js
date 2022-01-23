@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./weather.css";
 import DateFormat from "./dateFormat";
+import WeatherIcon from "./weatherIcon";
 
 export default function Weather(props){
     let [weather, setWeather]= useState({});
@@ -14,11 +15,11 @@ export default function Weather(props){
         setWeather({
             temperature: Math.round(response.data.main.temp),
             city: response.data.name,
-            iconUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny.png",
+            iconCode: response.data.weather[0].icon,
             description: response.data.weather[0].description,
             humidity: response.data.main.humidity,
             wind: response.data.wind.speed,
-            date: new Date (response.data.dt * 1000)
+            date: new Date()
         });
         console.log("weatherData", weather.date)
     }
@@ -40,7 +41,7 @@ export default function Weather(props){
     let form = <form onSubmit={handleSubmit}>
     <div className="row">
     <div className="col-9">
-    <input type="text" className="form-control" placeholder="Enter your city.." onChange={updateCity}></input>
+    <input type="text" className="form-control" placeholder="Enter your city.." autoFocus onChange={updateCity}></input>
     </div>
     <div className="col-3">
     <button type="submit" className="btn btn-primary">Search</button>
@@ -56,7 +57,7 @@ export default function Weather(props){
             {form}
             <DateFormat date={weather.date}/>
             <h2>{weather.city}</h2>
-            <img src={weather.iconUrl} alt="weather-icon" className="main-icon"></img>
+            <WeatherIcon code={weather.iconCode}/>
             <div className="row">
             <div className="col-6">
             <h1>{weather.temperature} °C</h1>
