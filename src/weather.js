@@ -3,6 +3,7 @@ import axios from "axios";
 import "./weather.css";
 import DateFormat from "./dateFormat";
 import WeatherIcon from "./weatherIcon";
+import WeatherTemperature from "./weatherTemperature";
 
 export default function Weather(props){
     let [weather, setWeather]= useState({});
@@ -13,15 +14,17 @@ export default function Weather(props){
         console.log("response",response);
         setReady(true);
         setWeather({
-            temperature: Math.round(response.data.main.temp),
+            celsius: Math.round(response.data.main.temp),
             city: response.data.name,
             iconCode: response.data.weather[0].icon,
             description: response.data.weather[0].description,
             humidity: response.data.main.humidity,
             wind: response.data.wind.speed,
-            date: new Date()
+            date: new Date(),
         });
-        console.log("weatherData", weather.date)
+        console.log("weatherData", weather.date);
+        console.log("temperature", weather.temperature);
+
     }
 
     function handleSubmit(event){
@@ -60,7 +63,7 @@ export default function Weather(props){
             <WeatherIcon code={weather.iconCode}/>
             <div className="row">
             <div className="col-6">
-            <h1>{weather.temperature} °C</h1>
+            <WeatherTemperature celsius={weather.celsius}/>
             </div>
             <div className="col-6">
             <ul>

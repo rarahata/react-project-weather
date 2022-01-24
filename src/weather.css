@@ -24,6 +24,10 @@
     margin: 0;
 }
 
+.Weather a {
+    padding: 5px;
+}
+
 .Weather ul {
     list-style-type: none;
     padding-left: 0;

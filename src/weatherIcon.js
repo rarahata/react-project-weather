@@ -26,8 +26,8 @@ export default function WeatherIcon(props){
     const colorMapping = {
         "01d": "#FFE162",
         "01n": "#FFE162",
-        "02d": "#92A9BD",
-        "02n": "#92A9BD",
+        "02d": "#FFAB76",
+        "02n": "#FFAB76",
         "03d": "#92A9BD",
         "03n": "#92A9BD",
         "04d": "#92A9BD",
@@ -53,6 +53,6 @@ export default function WeatherIcon(props){
     animate={true}
   />);
 }else{
-    return "Weather Icon";
+    return "Weather Icon Loading...";
 }
 }
