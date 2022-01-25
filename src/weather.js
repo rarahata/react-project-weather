@@ -22,9 +22,15 @@ export default function Weather(props){
             humidity: response.data.main.humidity,
             wind: response.data.wind.speed,
             date: new Date(),
+            longitude: response.data.coord.lon,
+            latitude: response.data.coord.lat
         });
         console.log("weatherData", weather.date);
         console.log("temperature", weather.temperature);
+        console.log("lon", weather.longitude);
+        console.log("lat", weather.latitude);
+
+
 
     }
 
@@ -75,7 +81,7 @@ export default function Weather(props){
             </div>
             </div>
             <hr></hr>
-            <WeatherForecast />
+            <WeatherForecast longitude={weather.longitude} latitude={weather.latitude} />
             </div>
             </div>
             );}else{
