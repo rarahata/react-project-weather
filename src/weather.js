@@ -4,6 +4,7 @@ import "./weather.css";
 import DateFormat from "./dateFormat";
 import WeatherIcon from "./weatherIcon";
 import WeatherTemperature from "./weatherTemperature";
+import WeatherForecast from "./weatherForecast";
 
 export default function Weather(props){
     let [weather, setWeather]= useState({});
@@ -74,31 +75,10 @@ export default function Weather(props){
             </div>
             </div>
             <hr></hr>
-            <div className="row">
-        <div className="col-3">
-            <p>Tue</p>
-            <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="weather-icon" className="forecast-icon"></img>
-            <p>12°C</p>
-        </div>
-        <div className="col-3">
-            <p>Tue</p>
-            <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="weather-icon" className="forecast-icon"></img>
-            <p>12°C</p>
-        </div>
-        <div className="col-3">
-            <p>Tue</p>
-            <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="weather-icon" className="forecast-icon"></img>
-            <p>12°C</p>
-        </div>
-        <div className="col-3">
-            <p>Tue</p>
-            <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="weather-icon" className="forecast-icon"></img>
-            <p>12°C</p>
-        </div>
-        </div>
-        </div>
-        </div>
-        );}else{
+            <WeatherForecast />
+            </div>
+            </div>
+            );}else{
             return (<div className="Weather">
                 <div className="container">
                 {form}
