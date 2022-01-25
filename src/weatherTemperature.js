@@ -16,11 +16,11 @@ function changeToC(event){
 
 if (unit === "celsius"){
     return (<div className="WeatherTemperature">
-    <h1>{props.celsius}</h1>&nbsp;°C |&nbsp;<a href="#" onClick={changeToF}>°F</a>
+    <h1>{props.celsius}</h1> &nbsp;°C |&nbsp;<a href="#" onClick={changeToF}>°F</a>
     </div>);
 }else{
     return (<div className="WeatherTemperature">
-    <h1>{Math.round(props.celsius * 9/5 +32)}</h1>&nbsp;<a href="#" onClick={changeToC}>°C</a>|&nbsp;°F
+    <h1>{Math.round(props.celsius * 9/5 +32)}</h1><a href="#" onClick={changeToC}>°C</a>|&nbsp;°F
     </div>);
 }
 }
