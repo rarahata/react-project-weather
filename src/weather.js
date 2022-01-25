@@ -61,7 +61,7 @@ export default function Weather(props){
             {form}
             <DateFormat date={weather.date}/>
             <h2>{weather.city}</h2>
-            <WeatherIcon code={weather.iconCode}/>
+            <WeatherIcon code={weather.iconCode} size={100}/>
             <div className="row">
             <div className="col-6">
             <WeatherTemperature celsius={weather.celsius}/>
