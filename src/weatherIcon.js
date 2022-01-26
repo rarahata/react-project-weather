@@ -43,16 +43,12 @@ export default function WeatherIcon(props){
         "50d": "#9D9D9D",
         "50n": "#9D9D9D",
     }
-    console.log(props.code);
+    console.log("iconCode",props.code);
 
-    if (props.code){
     return (<ReactAnimatedWeather
     icon={iconMapping[props.code]}
     color={colorMapping[props.code]}
     size={props.size}
     animate={true}
   />);
-}else{
-    return "Weather Icon Loading...";
-}
 }

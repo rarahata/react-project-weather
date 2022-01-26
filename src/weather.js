@@ -7,14 +7,12 @@ import WeatherTemperature from "./weatherTemperature";
 import WeatherForecast from "./weatherForecast";
 
 export default function Weather(props){
-    let [weather, setWeather]= useState({});
-    let [ready, setReady] = useState(false);
-    let [inputCity, setInputCity] = useState("");
+    let [weatherData, setWeatherData]= useState({ ready: false });
+    let [inputCity, setInputCity] = useState(props.defaultCity);
 
     function handleResponse(response){
-        console.log("response",response);
-        setReady(true);
-        setWeather({
+        setWeatherData({
+            ready: true,
             celsius: Math.round(response.data.main.temp),
             city: response.data.name,
             iconCode: response.data.weather[0].icon,
@@ -22,29 +20,24 @@ export default function Weather(props){
             humidity: response.data.main.humidity,
             wind: response.data.wind.speed,
             date: new Date(),
-            longitude: response.data.coord.lon,
-            latitude: response.data.coord.lat
+            coord: response.data.coord,
         });
-        console.log("weatherData", weather.date);
-        console.log("temperature", weather.temperature);
-        console.log("lon", weather.longitude);
-        console.log("lat", weather.latitude);
-
-
-
     }
 
-    function handleSubmit(event){
-    event.preventDefault();
+    function search(){
     const apiKey ="67ca492fd73748fde63df058209eed51";
     const apiUrl =`https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=metric`;
-    console.log(apiUrl);
     axios.get(apiUrl).then(handleResponse);
     }
 
-    function updateCity(event){
+    function handleSubmit(event){
         event.preventDefault();
+        search();
+    }
+
+    function updateCity(event){
         setInputCity(event.target.value);
+        console.log(event.target.value);
     }
 
     
@@ -59,39 +52,31 @@ export default function Weather(props){
     </div>
     </form>
     
-    if (ready){
-        console.log(weather);
+    if (weatherData.ready){
     return (
         <div className="Weather">
             <div className="container">
             {form}
-            <DateFormat date={weather.date}/>
-            <h2>{weather.city}</h2>
-            <WeatherIcon code={weather.iconCode} size={100}/>
+            <DateFormat date={weatherData.date}/>
+            <h2>{weatherData.city}</h2>
+            <WeatherIcon code={weatherData.iconCode} size={100}/>
             <div className="row">
             <div className="col-6">
-            <WeatherTemperature celsius={weather.celsius}/>
+            <WeatherTemperature celsius={weatherData.celsius}/>
             </div>
             <div className="col-6">
             <ul>
-            <li className="text-capitalize">{weather.description}</li>
-            <li>Humidity: {weather.humidity}%</li>
-            <li>Wind: {weather.wind} m/s</li>
+            <li className="text-capitalize">{weatherData.description}</li>
+            <li>Humidity: {weatherData.humidity}%</li>
+            <li>Wind: {weatherData.wind} m/s</li>
             </ul>
             </div>
             </div>
             <hr></hr>
-            <WeatherForecast longitude={weather.longitude} latitude={weather.latitude} />
             </div>
             </div>
             );}else{
-            return (<div className="Weather">
-                <div className="container">
-                {form}
-                <h2>Welcome to Rei's Weather App</h2>
-                <p>Enter the city you want to check the weather!</p>
-                </div>
-                </div>);
-        }
+                search();
+                return "Loading";
     }
-    
+}
