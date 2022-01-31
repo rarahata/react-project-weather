@@ -1,6 +1,5 @@
 import React from "react";
 import WeatherIcon from "./weatherIcon";
-import { format, compareAsc } from "date-fns";
 import "./weatherForecastDay.css";
 
 export default function WeatherForecastDay(props) {
