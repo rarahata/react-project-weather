@@ -1,0 +1,7 @@
+.WeatherForecastDay .temp-max {
+  padding-right: 10px;
+}
+
+.WeatherForecastDay .temp-min {
+  opacity: 0.8;
+}
