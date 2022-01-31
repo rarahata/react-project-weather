@@ -6,8 +6,8 @@ export default function FormatDate(props){
     //let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     //let months = ["January", "February", "March", "April", "May", "June", "July", "August", "Septemper", "October", "November", "December"];
         return <div>
-            <p>{format(props.date, "EEEE, do MMMM")}</p>
-            <p>{format(props.date, "HH:mm")}</p>
+            <p>{format(props.date, "EEEE, do MMM")}</p>
+            <div>Updated on {format(props.date, "HH:mm")}</div>
             </div>
 
     
