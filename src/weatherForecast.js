@@ -1,36 +1,44 @@
-import React from "react";
-import "./weatherForecast.css";
-import WeatherIcon from "./weatherIcon";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import WeatherForecastDay from "./weatherForecastDay";
 
+export default function WeatherForecast(props) {
+  let [forecast, setForecast] = useState(null);
+  let [ready, setReady] = useState(false);
+  console.log("coord", props);
 
-export default function WeatherForecast(props){
+  function handleResponse(response) {
+    setForecast(response.data.daily);
+    setReady(true);
 
-    function handleResponse(response){
-        console.log("coordresponse", response.data);
-    }
-    console.log(props);
+    console.log("response", response.data.daily);
+  }
 
-    let longitude = props.coord.lon;
-    let latitude = props.coord.lat; 
-    let apiKey = "67ca492fd73748fde63df058209eed51";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${apiKey}`;
-
+  useEffect(() => {
+    const apiKey = "67ca492fd73748fde63df058209eed51";
+    const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${props.coord.lat}&lon=${props.coord.lon}&exclude=current,hourly,minutely,alerts&appid=${apiKey}&units=metric`;
+    console.log(apiUrl);
     axios.get(apiUrl).then(handleResponse);
+  }, [props.coord]);
 
+  console.log("forecast", forecast);
 
-    if (props.coord){
+  if (ready) {
     return (
-    <div className="WeatherForecast">
-    <div className="row">
-    <div className="col">
-    <p>Tue</p>
-    <WeatherIcon code="01d" size={36} />
-    <p>19°C</p>
-    <p>10°C</p>
-    </div>
-    </div>
-    </div>);
-    }else{ return "Loading"
-};
+      <div className="WeatherForecast">
+        <div className="row">
+          {forecast.map((dailyforecast, index) => {
+            if (index < 4)
+              return (
+                <div className="col-3" key={index}>
+                  <WeatherForecastDay data={dailyforecast} />
+                </div>
+              );
+          })}
+        </div>
+      </div>
+    );
+  } else {
+    return "Loading";
+  }
 }
