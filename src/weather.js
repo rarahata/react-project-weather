@@ -85,6 +85,13 @@ export default function Weather(props) {
           </div>
           <hr></hr>
           <WeatherForecast coord={weatherData.coord} />
+          <hr></hr>
+          <p className="footer">
+            This App is coded by Rei, and is open-sourced on
+            <a href="https://github.com/rarahata/react-project-weather">
+              GitHub.
+            </a>
+          </p>
         </div>
       </div>
     );
